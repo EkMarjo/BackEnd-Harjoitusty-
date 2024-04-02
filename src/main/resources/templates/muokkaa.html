@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Muokkaa harjoitusta</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Muokkaa harjoituksesi tietoja</h1>
+    <div>
+        <form th:object="${muokkaa}" th:action="@{/save}" action="#" method="post">
+            <input type="hidden" id="id" th:field="*{id}"/>
+            <div>
+            <label>Kesto</label>
+            <input type="number" th:field="*{kesto}" />
+        </div>
+        <div>
+            <label>Keskisyke</label>
+            <input type="number" th:field="*{keskisyke}" />
+        </div>
+        <div>
+            <label>Päivämäärä</label>
+            <input type="number" th:field="*{paivamaara}" />
+        </div>
+        <div>
+            <label>Muistiinpanot</label>
+            <input type="text" th:field="*{muistiinpano}" />
+        </div>
+
+        <div style="clear: both; display: block; height: 10px;"></div>						
+        <label for="deplist">Laji</label>
+       <select id="deplist" th:field="*{genre}" class="form-control">
+             <option th:each="genre: ${genres}" th:value="${genre.genreid}" th:text="${genre.laji}"></option>
+      </select>
+
+      <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="submit" value="Tallenna"> </input>
+
+
+        </form>
+
+
+    </div>
+</body>
+</html>

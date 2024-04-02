@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Lisää uusi harjoitus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Lisää uusi harjoitus</h1>
+    <h3>Tällä sivulla voit lisätä uuden harjoituksen. Tarvitset lisäämistä varten seuraavat tiedot: Suorituksen kesto minuuteissa,
+        keskisykkeesi ja suorituksen päivämäärän. Voit myös kirjoittaa suorituksesta muistiinpanoja, jotta muistat myöhemmin miten 
+        harjoitus sujui.
+    </h3>
+    <div>
+        <form action="#" th:object="${practice}" th:action="@{save}" method="post">
+            <div class="form-group">
+                <label for="kesto">Kesto</label>
+                <input type="number" id="kesto" th:field="*{kesto}"/>
+                <div th:if="${#fields.hasErrors('kesto')}" th:errors="*{kesto}">Error</div>            </div>
+            <div class="form-group">
+                <label for="keskisyke">Keskisyke</label>
+                <input type="number" id="keskisyke" th:field="*{keskisyke}"/>
+                <div th:if="${#fields.hasErrors('keskisyke')}" th:errors="*{keskisyke}">Error</div>
+            </div>
+            <div class="form-group">
+                <label for="paivamaara">Päivämäärä</label>
+                <input type="number" id="paivamaara" th:field="*{paivamaara}"/>
+                <span th:if="${#fields.hasErrors('paivamaara')}" th:errors="*{paivamaara}">Error</span>
+            </div>
+            <div class="form-group">
+                <label for="muistiinpano">Muistiinpanot</label>
+                <input type="text" id="muistiinpano" th:field="*{muistiinpano}"/>
+                <span th:if="${#fields.hasErrors('muistiinpano')}" th:errors="*{muistiinpano}">Error</span>
+            </div>
+            <div class="form-group">
+                <label for="deplist">Laji</label>
+                <select id="deplist" th:field="*{genre}" class="form-control">
+                    <option th:each="genre: ${genres}" th:value="${genre.genreid}" th:text="${genre.laji}"></option>
+                </select>
+            </div>
+            <input type="submit" value="Tallenna"/>
+        </form>
+    </div>
+    </body>
+    </html>

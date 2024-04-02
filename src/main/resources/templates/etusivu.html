@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org
+"xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+<title>Etusivu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Sinun treeni päiväkirja</h1>
+    <h2>Moikka <span sec:authentication="name"></span>!</h2>
+    <h3>Alta löydät listan sinun omista harjoituksista ja voit treenisi jälkeen lisätä uuden harjoituksen listaan.
+        Mukavia treenejä!
+    </h3>
+	
+<table>
+    <tr>
+        <th>Laji</th>
+        <th>Kesto (min)</th>
+        <th>Keskisyke</th>
+        <th>Päivämäärä (PPKKVVVV)</th>
+        <th>Muistiinpanot suorituksesta</th>
+        <th sec:authorize="hasAuthority('ADMIN')"> </th>
+        </tr>
+        
+
+        <tr th:each = "practice : ${practices}">
+            <td th:text="${practice.genre.laji}" ></td>
+            <td th:text="${practice.kesto}"></td>
+            <td th:text="${practice.keskisyke}"></td>
+            <td th:text="${practice.paivamaara}"></td>
+            <td th:text="${practice.muistiinpano}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/delete/{id}(id=${practice.id})}"  class="btn btn-xs btn-danger">Poista harjoitus</a></td>
+            <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/muokkaa/{id}(id=${practice.id})}"  class="btn btn-xs btn-danger">Muokkaa harjoitusta</a></td>
+        </tr>
+
+        
+    </tr> 
+</table>
+
+<a href="/lisaatreeni">Lisää uusi harjoitus</a> 
+<a href="/harjoitukset">Hae inspiraatiota</a>  
+
+<div class="col-md-4" style="padding:20px 0">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Kirjaudu ulos" />
+    </form>
+</div>
+</body>
+</html>
